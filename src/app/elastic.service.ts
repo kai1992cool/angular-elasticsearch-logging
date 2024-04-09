@@ -1,22 +1,21 @@
 import { Injectable } from "@angular/core";
-import { Client } from '@elastic/elasticsearch';
+import * as ElasticAppSearch from "@elastic/app-search-javascript";
 
 @Injectable({
     providedIn: 'root'
 })
 export class ElasticService {
-    private client: Client;
+    private client: any;
     elasticSearchUrl = 'url';
     elasticAPIKeyId = 'key-id';
     elasticKey = 'key';
     indexName = 'search-index';
     constructor() {
-        this.client = new Client({
-            node: this.elasticSearchUrl,
-            auth: {
-                apiKey: this.elasticKey
-            }
-        });
+        this.client = ElasticAppSearch.createClient({
+            searchKey: "search-mu75psc5egt9ppzuycnc2mc3",
+            endpointBase: "http://127.0.0.1:3002",
+            engineName: "favorite-videos"
+          });
     }
 
     async logToElasticSearch( message: string, level: string = 'info') { 
